@@ -1,0 +1,219 @@
+defExports.basic = {
+    PARENT: [defExports.genericTank],
+    LABEL: 'Developer (trust)',
+    DANGER: 4,
+    LEVEL: -1,
+    RESET_UPGRADES: true,
+    SKILL: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    SKILL_CAP: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    GUNS: [{
+        POSITION: [18, 8, 1, 0, 0, 0, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.less_pen]),
+            TYPE: defExports.bullet,
+            LABEL: '',
+            STAT_CALCULATOR: 0,
+            WAIT_TO_CYCLE: false,
+            AUTOFIRE: false,
+            SYNCS_SKILLS: false,
+            MAX_CHILDREN: 0,
+            ALT_FIRE: false,
+            NEGATIVE_RECOIL: false,
+            COLOR: 16,
+            SKIN: 0
+        }
+    }],
+    DAMAGE_CLASS: 2,
+    CAN_BE_ON_LEADERBOARD: true,
+    DIES_TO_TEAM_BASE: true,
+    MOTION_TYPE: 'motor',
+    IS_SMASHER: false,
+    ON_DEFINED: (me) => {
+        if (c.serverName.includes("Hangout")){
+            me.upgrades.push({
+                class: "testbed_beta",
+                level: 60,
+                index: Class.testbed_beta.index,
+                tier: 4
+            });
+			me.upgrades.push({
+                class: "arenaCloserLite",
+                level: 60,
+                index: Class.arenaCloserLite.index,
+                tier: 4
+            });
+            me.upgrades.push({
+                class: "observer",
+                level: 60,
+                index: Class.observer.index,
+                tier: 4
+            });
+        } 
+    }
+};
+// BASIC
+defExports.basic.UPGRADES_TIER_1 = [defExports.twin, defExports.sniper, defExports.machine, defExports.flank, defExports.director, defExports.pounder, defExports.zoomSingle, defExports.pellet, defExports.trapper, defExports.propeller, defExports.auto2, defExports.littleArtillery, defExports.lancer, defExports.autoBasic, defExports.hybridBasic, defExports.littleHunter, defExports.miniGrower, defExports.basicIntercept];
+defExports.basic.UPGRADES_TIER_3 = [defExports.hivemind];
+defExports.basic.UPGRADES_TIER_4 = [defExports.diep0, defExports.featured_tanks]
+defExports.arenaCloserParentLite = {
+    PARENT: [defExports.genericTank],
+    LABEL: 'Arena Closer Lite',
+	TOOLTIP: `You have arena closer properties, but the power of a basic. (also this tank might suffer reworks as you play because i suck at coding)`,
+    DANGER: 10,
+    SIZE: 12,
+    COLOR: 13,
+    LAYER: 13,
+    BODY: {
+        REGEN: base.REGEN,
+        HEALTH: base.HEALTH,
+        DENSITY: 3,
+        DAMAGE: base.DAMAGE,
+        FOV: 1.15,
+        SPEED: 8
+    },
+    DIES_TO_TEAM_BASE: false,
+    GO_THRU_OBSTACLES: true,
+    ABILITY_IMMUNE: true,
+    GUNS: [],
+    TURRETS: []
+};
+defExports.arenaCloserLite = {
+    PARENT: [defExports.arenaCloserParentLite],
+    GUNS: [{
+        POSITION: [14, 10, 1, 0, 0, 0, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic]),
+            TYPE: defExports.closerBullet
+        }
+    }]
+};
+defExports.opArenaCloserLite = {
+    PARENT: [defExports.omegaarenaCloserParentLite],
+	PROPS: [makeAura(3,0.5)],
+    GUNS: [{
+        POSITION: [14, 10, 1, 0, 0, 0, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.double_reload, g.no_recoil]),
+            TYPE: defExports.closerBullet
+        }
+    }]
+};
+defExports.omegaarenaCloserParentLite = {
+    PARENT: [defExports.genericTank],
+    LABEL: 'Omega Closer Lite',
+	TOOLTIP: `Yeesh, man.`,
+    DANGER: 10,
+    SIZE: 30,
+    COLOR: 13,
+    LAYER: 13,
+    BODY: {
+        REGEN: 10,
+        HEALTH: 100,
+        DENSITY: 6,
+        DAMAGE: 10,
+        FOV: 1.15,
+        SPEED: 8
+    },
+    DIES_TO_TEAM_BASE: false,
+    GO_THRU_OBSTACLES: true,
+    ABILITY_IMMUNE: true,
+    GUNS: [],
+    TURRETS: []
+};
+defExports.flankArenaCloserLite = makeFlank(defExports.arenaCloserLite, 3, 'Flank Closer Lite');
+defExports.hexaArenaCloserLite = makeFlank(defExports.arenaCloserLite, 6, 'Hexa Closer Lite');
+defExports.octoArenaCloserLite = makeFlank(defExports.arenaCloserLite, 8, 'Octo Closer Lite');
+defExports.arenaCloserLite.UPGRADES_TIER_4 = [defExports.flankArenaCloserLite, defExports.fallenArenaCloserLite, defExports.reanimatedArenaCloserLite]
+defExports.flankArenaCloserLite.UPGRADES_TIER_4 = [defExports.hexaArenaCloserLite]
+defExports.hexaArenaCloserLite.UPGRADES_TIER_4 = [defExports.octoArenaCloserLite]
+defExports.fallenArenaCloserParentLite = {
+    PARENT: [defExports.genericTank],
+    LABEL: 'Fallen Arena Closer Lite',
+	TOOLTIP: `Slightly more power, yea just that i mean what did you expect`,
+    DANGER: 10,
+    SIZE: 13.5,
+    COLOR: 18,
+    LAYER: 13,
+    BODY: {
+        REGEN: base.REGEN,
+        HEALTH: base.HEALTH * 1.5,
+        DENSITY: 5,
+        DAMAGE: base.DAMAGE,
+        FOV: 1.15,
+        SPEED: 8
+    },
+    DIES_TO_TEAM_BASE: false,
+    GO_THRU_OBSTACLES: true,
+    ABILITY_IMMUNE: true,
+    GUNS: [],
+    TURRETS: []
+};
+defExports.fallenArenaCloserLite = {
+    PARENT: [defExports.fallenArenaCloserParentLite],
+    GUNS: [{
+        POSITION: [14, 10, 1, 0, 0, 0, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.more_reload]),
+            TYPE: defExports.closerBullet
+        }
+    }]
+};
+defExports.reanimatedArenaCloserParentLite = {
+    PARENT: [defExports.genericTank],
+    LABEL: 'Reanimated Arena Closer Lite',
+	TOOLTIP: `Sacrifices health and reload for overall stats increase.`,
+    DANGER: 10,
+    SIZE: 13.5,
+    COLOR: 17,
+    LAYER: 13,
+    BODY: {
+        REGEN: base.REGEN * 1.25,
+        HEALTH: base.HEALTH * 0.5,
+        DENSITY: 6,
+        DAMAGE: base.DAMAGE * 1.2,
+        FOV: 1.2,
+        SPEED: 9
+    },
+    DIES_TO_TEAM_BASE: false,
+    GO_THRU_OBSTACLES: true,
+    ABILITY_IMMUNE: true,
+    GUNS: [],
+    TURRETS: []
+};
+defExports.reanimatedArenaCloserLite = {
+    PARENT: [defExports.reanimatedArenaCloserParentLite],
+    GUNS: [{
+        POSITION: [14, 10, 1, 0, 0, 0, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.more_reload, g.pound]),
+            TYPE: defExports.closerBullet
+        }
+    }]
+};
+defExports.autolittleChungus = makeAuto(defExports.littleChungus);
+defExports.littleChungusception = makeCeption(defExports.littleChungus);
+
+defExports.littleChungus.UPGRADES_TIER_4 = [defExports.autolittleChungus];
+defExports.autolittleChungus.UPGRADES_TIER_4 = [defExports.littleChungusception];
+
+defExports.autobigChungus = makeAuto(defExports.bigChungus);
+defExports.bigChungusception = makeCeption(defExports.bigChungus);
+
+defExports.bigChungus.UPGRADES_TIER_4 = [defExports.autobigChungus];
+defExports.autobigChungus.UPGRADES_TIER_4 = [defExports.bigChungusception];
+
+defExports.eggBossTier0AI = {
+    PARENT: [defExports.eggBossTank],
+    TYPE: 'miniboss',
+	COLOR: "#ffffff",
+	VARIES_IN_SIZE: true,
+    LEVEL: 45,
+    VALUE: 60000,
+    CONTROLLERS: ['nearestDifferentMaster', 'mapTargetToGoal'],
+    //CONTROLLERS: ['nearestDifferentMaster', 'minion'/*, 'fleeAtLowHealth'*/, 'canRepel'],
+    AI: {
+        NO_LEAD: true
+    },
+    HITS_OWN_TYPE: 'hard',
+    SKILL: setSkill(0, 4, 6, 3, 4, 5, 3, 0, 0, 0)
+};
