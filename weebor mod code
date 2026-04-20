@@ -217,3 +217,68 @@ defExports.eggBossTier0AI = {
     HITS_OWN_TYPE: 'hard',
     SKILL: setSkill(0, 4, 6, 3, 4, 5, 3, 0, 0, 0)
 };
+defExports.eggSanctuaryLite = {
+    PARENT: [defExports.food],
+    LABEL: 'Egg Sanctuary Lite',
+    SIZE: 12,
+    VALUE: 1800,
+    DRAW_HEALTH: true,
+    BODY: {
+        DAMAGE: 2,
+        DENSITY: 8,
+        HEALTH: 100,
+        RESIST: 1.2,//Math.pow(1.25, 3),
+        SHIELD: 8,
+        REGEN: .4,
+        ACCELERATION: .00125
+    },
+    SHAPE: 0,
+    VALUE: 18000,
+    COLOR: 6,
+    MAX_CHILDREN: 18,
+    GUNS: [{
+        POSITION: [4, 11, 1.2, 8, 0, 0, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.blank, g.half_reload, g.no_recoil, g.smaller]),
+            TYPE: defExports.singularEgg,
+            AUTOFIRE: true
+        }
+    }],
+    HAS_NO_RECOIL: true,
+    GIVE_KILL_MESSAGE: false,
+	ON_DEAD: function ({ sockets, ran, Entity }) {
+		let x = this.x,
+			y = this.y;
+		//smoke(6000, x, y);
+		setTimeout(() => {
+			let boss = new Entity({
+				x: this.x,
+				y: this.y
+			});
+			sockets.broadcast("");
+			boss.team = -100;
+			boss.control.target.x = boss.control.target.y = 100;
+			boss.define(Class.eggBossTier0AI);
+			boss.name = ran.chooseBossName("a", 1)[0];
+			boss.miscIdentifier = "Sanctuary Boss";
+			boss.sandboxId = this.sandboxId;
+			setTimeout(() => {
+				if (boss.isAlive()) {
+					sockets.broadcast("The EK-0's wrath has remained unhindered for too long; it appears to be evolving...");
+					setTimeout(() => {
+						if (boss.isAlive()) {
+							for (let i = 1; i < 22; i++) setTimeout(() => {
+								if (boss.isAlive()) {
+									boss.define(Class[`ekAnim${i}`]);
+									if (i === 21) boss.define(Class.eggBossTier1AI);
+								}
+							}, 36 * i);
+							boss.miscIdentifier = "Sanctuary Boss";
+							sockets.broadcast("The EK-0 has evolved into an EK-1!");
+						} else sockets.broadcast("The EK-0 has been consoled just in time...");
+					}, 6000);
+				}
+			}, 6e5);
+		}, 6000);
+	}
+};
