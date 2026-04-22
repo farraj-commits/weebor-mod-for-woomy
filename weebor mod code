@@ -343,3 +343,53 @@ defExports.rebasicTsarBombaLauncher = {
 };
 defExports.tsarBombaLauncher.UPGRADES_TIER_4 = [defExports.retsarBombaLauncher];
 defExports.basicTsarBombaLauncher.UPGRADES_TIER_4 = [defExports.rebasicTsarBombaLauncher];
+
+defExports.refatManNukeLauncher = {
+    PARENT: [defExports.genericTank],
+    LABEL: 'Reusable Fatman',
+    DANGER: 7,
+    BODY: {
+        FOV: 1.375
+    },
+    SHAPE: 238,
+    GUNS: [{
+        POSITION: [1, 1, 1, 22, -4, 0, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.rpg_launch, g.fast, g.fast, g.fast, g.more_damage, g.decelerate]),
+            TYPE: defExports.fatManNuke
+        }
+    }]
+};
+defExports.refatManNukeLauncherAutoGun = {
+    PARENT: [defExports.auto3gun],
+    LABEL: 'Fatman',
+    SHAPE: 238,
+    GUNS: [{
+        POSITION: [1, 1, 1, 22, -4, 0, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.rpg_launch, g.fast, g.fast, g.fast, g.more_damage, g.decelerate, g.half_reload, g.bit_more_reload, g.bigger]),
+            TYPE: defExports.fatManNuke
+        }
+    }]
+};
+defExports.rebasicShooterFatMan = {
+    PARENT: [defExports.genericTank],
+    LABEL: 'Guy With a Reusable Fatman',
+    DANGER: 7,
+    BODY: {
+        FOV: 1.375
+    },
+    GUNS: [{
+        POSITION: [18, 8, 1, 0, 0, 0, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.half_recoil]),
+            TYPE: defExports.bullet
+        }
+    }],
+    TURRETS: [{
+        POSITION: [11, -3.3, 8.5, 0, 361, 1],
+        TYPE: defExports.fatManNukeLauncherAutoGun
+    }]
+};
+defExports.fatManNukeLauncher.UPGRADES_TIER_4 = [defExports.refatManNukeLauncher];
+defExports.basicShooterFatMan.UPGRADES_TIER_4 = [defExports.rebasicShooterFatMan];
