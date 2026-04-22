@@ -246,7 +246,7 @@ defExports.eggSanctuaryLite = {
     SHAPE: 0,
     VALUE: 18000,
     COLOR: 6,
-    MAX_CHILDREN: 18,
+    MAX_CHILDREN: 3,
     GUNS: [{
         POSITION: [4, 11, 1.2, 8, 0, 0, 0],
         PROPERTIES: {
