@@ -266,7 +266,6 @@ defExports.eggSanctuaryLite = {
 				x: this.x,
 				y: this.y
 			});
-			sockets.broadcast("");
 			boss.team = -100;
 			boss.control.target.x = boss.control.target.y = 100;
 			boss.define(Class.eggBossTier0AI);
