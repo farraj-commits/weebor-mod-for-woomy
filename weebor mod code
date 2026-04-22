@@ -388,7 +388,7 @@ defExports.rebasicShooterFatMan = {
     }],
     TURRETS: [{
         POSITION: [11, -3.3, 8.5, 0, 361, 1],
-        TYPE: defExports.fatManNukeLauncherAutoGun
+        TYPE: defExports.refatManNukeLauncherAutoGun
     }]
 };
 defExports.fatManNukeLauncher.UPGRADES_TIER_4 = [defExports.refatManNukeLauncher];
