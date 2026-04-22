@@ -293,3 +293,54 @@ defExports.eggSanctuaryLite = {
 		}, 6000);
 	}
 };
+defExports.retsarBombaLauncher = {
+    PARENT: [defExports.genericTank],
+    LABEL: 'Reusable Soviet Nuke Launcher',
+    DANGER: 7,
+    BODY: {
+        FOV: 1.7
+    },
+    SHAPE: 247,
+    COLOR: 16,
+    GUNS: [{
+        POSITION: [1, 1, -1.2, 1, -2, 0, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.tsar_launch]),
+            TYPE: defExports.realMissile
+        }
+    }]
+};
+defExports.retsarBombaLauncherAutoGun = {
+    PARENT: [defExports.auto3gun],
+    LABEL: 'Reusable Soviet Nuke Launcher',
+    SHAPE: 247,
+    GUNS: [{
+        POSITION: [1, 1, -1.2, 1, -2, 0, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.tsar_launch, g.half_reload, g.bigger]),
+            TYPE: defExports.realMissile
+        }
+    }]
+};
+defExports.rebasicTsarBombaLauncher = {
+    PARENT: [defExports.genericTank],
+    LABEL: 'SUKA BLYAT',
+    DANGER: 7,
+    BODY: {
+        FOV: 1.7,
+        SPEED: base.SPEED * .75
+    },
+    GUNS: [{
+        POSITION: [18, 8, 1, 0, 0, 0, .1],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.half_recoil]),
+            TYPE: defExports.bullet
+        }
+    }],
+    TURRETS: [{
+        POSITION: [16, 6.5, 3.25, 0, 361, 1],
+        TYPE: defExports.retsarBombaLauncherAutoGun
+    }]
+};
+defExports.tsarBombaLauncher.UPGRADES_TIER_4 = [defExports.retsarBombaLauncher];
+defExports.basicTsarBombaLauncher.UPGRADES_TIER_4 = [defExports.rebasicTsarBombaLauncher];
