@@ -87,6 +87,17 @@ defExports.arenaCloserLite = {
         }
     }]
 };
+defExports.machArenaCloserLite = {
+    PARENT: [defExports.arenaCloserParentLite],
+    LABEL: 'Machine Closer Lite',
+    GUNS: [{
+        POSITION: [16, 10, 1.4, 0, 0, 0, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.mach]),
+            TYPE: defExports.closerBullet
+        }
+    }]
+};
 defExports.opArenaCloserLite = {
     PARENT: [defExports.omegaarenaCloserParentLite],
 	PROPS: [makeAura(3,0.5)],
